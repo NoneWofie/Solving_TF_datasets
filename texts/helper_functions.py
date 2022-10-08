@@ -9,7 +9,6 @@ import pathlib
 import matplotlib.image as mpimg
 import random
 import datetime
-from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 
 ####################
 # Getting Datasets #
@@ -24,8 +23,8 @@ def extract_zip_file_to_folder(zip_names_list, folder_name="dataset"):
     """
     Extracts zip files on the root directory, and places it in a folder.
 
-    Args:
-    -----
+    Parameters
+    ----------
     folder_name (str): folder name to store the unzipped files in.
     zip_names_list (list): A list of strings that contains zipped file names.
     """
@@ -47,8 +46,8 @@ def exploring_num_directories_files(folder_name="dataset"):
     """
     Explores the number of directories & files in a folder.
 
-    Args:
-    -----
+    Parameters
+    ----------
     folder_name (str): folder name to explore from.
     """
     for dirpath, dirnames, filenames in os.walk(folder_name):
@@ -64,8 +63,8 @@ def num_of_image_classes_from_directory(folder_name="./dataset/train/"):
     """
     Gathers the number of different classes based on the folder structure.
 
-    Args:
-    -----
+    Parameters
+    ----------
     folder_name (str): A folder which contain all the different categories e.g. "dataset/train/"
     """
     data_dir = pathlib.Path(
@@ -86,8 +85,8 @@ def view_random_image(target_dir="./datasets/train/", target_class="class_name")
     """
     Views random images on the image dataset.
 
-    Args:
-    -----
+    Parameters
+    ----------
     target_dir (str): A target folder where different categorical exists
     target_class (str): A target class to view an image
     """
@@ -120,8 +119,8 @@ def create_tensorboard_callback(dir_name, experiment_name):
     """
     To create a tensorboard callback for model training
 
-    Args:
-    -----
+    Parameters
+    ----------
     dir_name (str): A folder where all experiments are stored
     experiment_name (str): An experiment name
     """
@@ -144,8 +143,8 @@ def plot_loss_curves(history):
     """
     Returns separate loss curves for training and validation metrics.
     
-    Args:
-    -----
+    Parameters
+    ----------
     history (dict): The return history object
     """
     loss = history.history['loss']
@@ -179,8 +178,8 @@ def load_and_prep_image(filename, img_shape=224):
   Reads an image from filename, turns it into a tensor
   and reshapes it to (img_shape, img_shape, colour_channel).
 
-  Args:
-  -----
+  Parameters
+  ----------
   filename (str): Filename of a file in the root directory
   img_shape (int): size of the image that the model takes in
   """
@@ -198,28 +197,3 @@ def load_and_prep_image(filename, img_shape=224):
   img = img/255.
 
   return img
-
-#
-# Function to evaluate: accuracy, precision, recall, f1-score
-#
-
-def calculate_results(y_true, y_pred):
-  """
-  Calculates model accuracy, precision, recall and f1 score of a binary classification model.
-
-  Args:
-  -----
-  y_true = true labels in the form of a 1D array
-  y_pred = predicted labels in the form of a 1D array
-
-  Returns a dictionary of accuracy, precision, recall, f1-score.
-  """
-  # Calculate model accuracy
-  model_accuracy = accuracy_score(y_true, y_pred) * 100
-  # Calculate model precision, recall and f1 score using "weighted" average
-  model_precision, model_recall, model_f1, _ = precision_recall_fscore_support(y_true, y_pred, average="weighted")
-  model_results = {"accuracy": model_accuracy,
-                  "precision": model_precision,
-                  "recall": model_recall,
-                  "f1": model_f1}
-  return model_results
