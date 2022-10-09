@@ -8,6 +8,4 @@ datasets
 *.tar
 *.zip
 **/*.zip
-train.zip
-test.zip
-valid.zip
+__pycache__
